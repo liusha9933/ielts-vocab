@@ -66,7 +66,7 @@ class IELTSVocabApp {
             const isCompleted = progress >= chapter.words.length;
             
             return `
-                <div class="chapter-card ${isCompleted ? 'completed' : ''}" onclick="app.startChapter(${chapter.id})">
+                <div class="chapter-card ${isCompleted ? 'completed' : ''}" data-chapter-id="${chapter.id}">
                     <div class="chapter-icon">${chapter.icon}</div>
                     <div class="chapter-name">${chapter.name}</div>
                     <div class="chapter-count">${chapter.words.length} 词</div>
@@ -76,6 +76,24 @@ class IELTSVocabApp {
                 </div>
             `;
         }).join('');
+        
+        // 使用事件委托绑定点击事件
+        grid.querySelectorAll('.chapter-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const chapterId = parseInt(card.dataset.chapterId);
+                this.startChapter(chapterId);
+            });
+            
+            // 添加触摸事件支持
+            card.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const chapterId = parseInt(card.dataset.chapterId);
+                this.startChapter(chapterId);
+            });
+        });
     }
 
     updateProgress() {
