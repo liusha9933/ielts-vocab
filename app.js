@@ -261,8 +261,6 @@ class IELTSVocabApp {
         const etymologyText = document.getElementById('word-etymology');
         const memorySection = document.getElementById('word-memory-section');
         const memoryText = document.getElementById('word-memory');
-        const muskSection = document.getElementById('musk-quote-section');
-        const muskText = document.getElementById('musk-quote-text');
         const spellSection = document.getElementById('spelling-section');
         const spellResultEl = document.getElementById('spelling-result');
         const memoryButtons = document.getElementById('memory-buttons');
@@ -391,11 +389,6 @@ class IELTSVocabApp {
                 // 存储当前单词用于检查
                 this.currentSpellWord = word.word;
                 break;
-        }
-        
-        // 隐藏马斯克语录（学习页面不显示）
-        if (muskSection) {
-            muskSection.style.display = 'none';
         }
     }
 
@@ -907,21 +900,40 @@ class IELTSVocabApp {
             this.reviewPageIndex = 0;
         }
         
-        document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
-        
-        // 找到对应模式的按钮并添加active类
-        const modeButtons = document.querySelectorAll('.mode-btn');
-        modeButtons.forEach(btn => {
-            if (btn.dataset.mode === mode || btn.textContent.includes(mode === 'learn' ? '学习' : mode === 'review' ? '复习' : '拼写')) {
+        // 更新模式按钮状态
+        document.querySelectorAll('.mode-btn').forEach((btn, index) => {
+            btn.classList.remove('active');
+            if ((mode === 'learn' && index === 0) || 
+                (mode === 'review' && index === 1) || 
+                (mode === 'spell' && index === 2)) {
                 btn.classList.add('active');
             }
         });
         
-        // 根据模式显示不同的提示
-        const wordCard = document.getElementById('word-card');
-        if (wordCard) {
-            wordCard.classList.remove('learn-mode', 'review-mode', 'spell-mode');
-            wordCard.classList.add(mode + '-mode');
+        // 获取所有相关元素
+        const wordCardContainer = document.getElementById('word-card-container');
+        const reviewContainer = document.getElementById('review-list-container');
+        const spellingSection = document.getElementById('spelling-section');
+        const memoryButtons = document.getElementById('memory-buttons');
+        const navButtons = document.querySelector('.nav-buttons');
+        
+        // 重置所有视图
+        if (wordCardContainer) wordCardContainer.classList.remove('hidden');
+        if (reviewContainer) reviewContainer.classList.remove('active');
+        if (spellingSection) spellingSection.style.display = 'none';
+        if (memoryButtons) memoryButtons.style.display = 'none';
+        if (navButtons) navButtons.style.display = 'flex';
+        
+        // 根据模式应用不同设置
+        if (mode === 'learn') {
+            if (memoryButtons) memoryButtons.style.display = 'grid';
+        } else if (mode === 'review') {
+            if (wordCardContainer) wordCardContainer.classList.add('hidden');
+            if (navButtons) navButtons.style.display = 'none';
+            this.renderReviewList();
+            return;
+        } else if (mode === 'spell') {
+            if (memoryButtons) memoryButtons.style.display = 'none';
         }
         
         // 重新渲染当前单词以应用新模式
