@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>雅思词汇真经 - 智能记忆</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2d2d2d;
+            --primary-dark: #1a1a1a;
+            --secondary: #6b7280;
+            --accent: #f4f4f5;
+            --success: #10b981;
+            --bg: #ffffff;
+            --card: #ffffff;
+            --card-light: #f4f4f5;
+            --text: #1f2937;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --gradient-1: linear-gradient(135deg, #f5f5f4 0%, #e7e5e4 100%);
+            --gradient-2: linear-gradient(135deg, #fafaf9 0%, #f5f5f4 100%);
+            --gradient-3: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* 移除星空背景 */
+        .stars {
+            display: none;
+        }
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* 主容器 */
+        .app {
+            position: relative;
+            z-index: 1;
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        /* 头部 - Notion风格简约 */
+        .header {
+            padding: 32px 20px 24px;
+            text-align: left;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 0;
+        }
+
+        .header h1 {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--text);
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            font-weight: 400;
+        }
+
+        /* 进度卡片 - Notion风格 */
+        .progress-card {
+            background: var(--card);
+            margin: 24px 16px;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: none;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .progress-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .progress-stats {
+            font-size: 0.875rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--card-light);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--text);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .streak {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--accent);
+        }
+
+        /* 章节网格 - Notion风格 */
+        .chapters-section {
+            padding: 0 16px;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .chapter-card {
+            background: var(--card);
+            border-radius: 8px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            background: var(--card-light);
+            border-color: var(--text-muted);
+        }
+
+        .chapter-card.completed {
+            border-color: var(--success);
+        }
+
+        .chapter-card.completed::after {
+            content: '✓';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 20px;
+            height: 20px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: white;
+        }
+
+        .chapter-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .chapter-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: var(--text);
+        }
+
+        .chapter-count {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .chapter-progress {
+            margin-top: 8px;
+            height: 3px;
+            background: var(--card-light);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .chapter-progress-fill {
+            height: 100%;
+            background: var(--text);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-1);
+        }
+
+        .chapter-card:nth-child(2)::before { background: var(--gradient-2); }
+        .chapter-card:nth-child(3)::before { background: var(--gradient-3); }
+        .chapter-card:nth-child(4)::before { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .chapter-card:nth-child(5)::before { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+        .chapter-card:nth-child(6)::before { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
+
+        .chapter-card:hover, .chapter-card:active {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+        }
+
+        .chapter-card.completed {
+            border-color: var(--success);
+        }
+
+        .chapter-card.completed::after {
+            content: '✓';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .chapter-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .chapter-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .chapter-count {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .chapter-progress {
+            margin-top: 8px;
+            height: 4px;
+            background: var(--card-light);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .chapter-progress-fill {
+            height: 100%;
+            background: var(--success);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        /* 学习页面 */
+        .study-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg);
+            z-index: 100;
+            overflow-y: auto;
+        }
+
+        .study-page.active {
+            display: block;
+        }
+
+        .study-header {
+            background: var(--gradient-1);
+            padding: 20px;
+            border-radius: 0 0 30px 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .study-title {
+            flex: 1;
+        }
+
+        .study-title h2 {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        .study-title p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .mode-toggle {
+            display: flex;
+            background: var(--card);
+            margin: 16px;
+            padding: 4px;
+            border-radius: 12px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .mode-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* 单词卡片 */
+        .word-card-container {
+            padding: 16px;
+            perspective: 1000px;
+        }
+
+        .word-card {
+            background: var(--card);
+            border-radius: 24px;
+            padding: 30px;
+            min-height: 400px;
+            box-shadow: var(--shadow);
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .word-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .word-card-front, .word-card-back {
+            backface-visibility: hidden;
+        }
+
+        .word-card-back {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            right: 30px;
+            bottom: 30px;
+            transform: rotateY(180deg);
+        }
+
+        .word-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .word-number {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .word-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: var(--card-light);
+            color: var(--text);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .icon-btn:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .icon-btn.playing {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .word-main {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .word-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .word-phonetic {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-family: 'Courier New', monospace;
+        }
+
+        .word-meaning {
+            background: var(--card-light);
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+
+        .meaning-title {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .meaning-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .word-example {
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            border-radius: 16px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .example-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .example-speak-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: var(--card-light);
+            color: var(--text);
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .example-speak-btn:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+        
+        .example-speak-btn.playing {
+            animation: pulse 1s infinite;
+        }
+
+        .example-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .example-translation {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        /* 复习模式 - 模糊效果 */
+        .blurred-content {
+            filter: blur(8px);
+            transition: filter 0.3s ease;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .blurred-content.revealed {
+            filter: blur(0);
+        }
+        
+        /* 拼写模式 */
+        .spelling-section {
+            padding: 16px;
+            margin-top: 10px;
+        }
+        
+        .spelling-hint {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .spelling-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            border: 2px solid var(--card-light);
+            border-radius: 12px;
+            background: var(--bg);
+            color: var(--text);
+            text-align: center;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-transform: lowercase;
+        }
+        
+        .spelling-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .spelling-input.correct {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        .spelling-input.wrong {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+        
+        .check-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .check-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+        
+        .spelling-result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+        
+        .spelling-result.show {
+            display: block;
+        }
+        
+        .spelling-result.correct {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+        
+        .spelling-result.wrong {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+        
+        /* 模式提示 */
+        .mode-hint {
+            text-align: center;
+            padding: 10px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            background: rgba(245, 158, 11, 0.1);
+            border-radius: 8px;
+            margin: 0 16px 10px;
+        }
+
+        /* 导航按钮 */
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+            padding: 16px;
+            margin-top: 10px;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn-prev {
+            background: var(--card-light);
+            color: var(--text);
+        }
+
+        .nav-btn-next {
+            background: var(--gradient-1);
+            color: white;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 记忆按钮 */
+        .memory-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 16px;
+        }
+
+        .memory-btn {
+            padding: 15px 10px;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .memory-btn-hard {
+            background: #ef4444;
+            color: white;
+        }
+
+        .memory-btn-good {
+            background: var(--accent);
+            color: white;
+        }
+
+        .memory-btn-easy {
+            background: var(--success);
+            color: white;
+        }
+
+        .memory-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* 激励弹窗 */
+        .motivation-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .motivation-modal.active {
+            display: flex;
+        }
+
+        .motivation-card {
+            background: var(--card);
+            border-radius: 30px;
+            padding: 40px;
+            text-align: center;
+            max-width: 350px;
+            animation: popIn 0.5s ease;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .motivation-emoji {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .motivation-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .motivation-text {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .motivation-btn {
+            padding: 15px 40px;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* 底部导航 - Notion风格 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--card);
+            padding: 8px 20px 20px;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid var(--border);
+            z-index: 50;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.7rem;
+            transition: all 0.2s ease;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .nav-item:hover {
+            background: var(--card-light);
+        }
+
+        .nav-item.active {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .nav-item-icon {
+            font-size: 1.4rem;
+        }
+
+        /* 提醒设置 */
+        .reminder-section {
+            padding: 16px;
+        }
+
+        .reminder-card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .reminder-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .time-picker {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .time-chip {
+            padding: 10px 20px;
+            background: var(--card-light);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .time-chip.active {
+            background: var(--primary);
+        }
+
+        /* 词汇汇总章节选择 */
+        .vocab-summary-section {
+            padding: 0 16px;
+            margin-top: 20px;
+        }
+
+        .summary-chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .summary-chapter-btn {
+            background: var(--card);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 12px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+            color: var(--text);
+        }
+
+        .summary-chapter-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .summary-chapter-btn .chapter-icon {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+        }
+
+        .summary-chapter-btn .chapter-name {
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .summary-chapter-btn .chapter-count {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        /* 词汇汇总页面 */
+        .summary-list-container {
+            padding: 16px;
+            height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .summary-item {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .summary-item:hover {
+            transform: translateX(5px);
+            border-left: 4px solid var(--primary);
+        }
+
+        .summary-item-number {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            min-width: 30px;
+        }
+
+        .summary-item-content {
+            flex: 1;
+        }
+
+        .summary-item-word {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .summary-item-phonetic {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: 'Courier New', monospace;
+            margin-bottom: 4px;
+        }
+
+        .summary-item-meaning {
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        .summary-item-speak {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--card-light);
+            color: var(--text);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .summary-item-speak:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+
+        /* 统计页面 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding: 16px;
+        }
+
+        .stat-card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 380px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .word-text {
+                font-size: 2rem;
+            }
+        }
+
+        /* 页面切换 */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* 词源解析 */
+        .word-etymology {
+            margin-top: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .etymology-title {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .etymology-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--accent);
+        }
+
+        /* 记忆方法 */
+        .word-memory {
+            margin-top: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%);
+            border-radius: 12px;
+            border-left: 4px solid var(--success);
+        }
+
+        .memory-title {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .memory-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--success);
+            font-style: italic;
+        }
+
+        /* 马斯克语录首页样式 - Notion风格 */
+        .musk-quote-section {
+            margin: 24px 16px;
+        }
+
+        .musk-quote-card {
+            background: var(--card-light);
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 3px solid var(--text);
+            position: relative;
+        }
+
+        .musk-quote-content {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text);
+            font-style: italic;
+            margin-bottom: 8px;
+            font-family: Georgia, serif;
+        }
+
+        .musk-quote-author {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: right;
+        }
+
+        /* 糖果庆祝动画 - Notion风格 */
+        .candy-celebration {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: var(--card);
+            color: var(--text);
+            padding: 32px 40px;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 500;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            z-index: 2000;
+            display: none;
+            text-align: center;
+            min-width: 280px;
+            animation: candyPop 0.5s ease forwards;
+            border: 1px solid var(--border);
+        }
+
+        .candy-celebration.show {
+            display: block;
+        }
+
+        .candy-celebration .candy-emoji {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            animation: candyBounce 0.6s ease infinite alternate;
+        }
+
+        .candy-celebration .candy-text {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .candy-celebration .candy-wow {
+            font-size: 1rem;
+            opacity: 0.9;
+            animation: wowPulse 0.8s ease infinite;
+        }
+
+        @keyframes candyBounce {
+            0% { transform: scale(1) rotate(-5deg); }
+            100% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        @keyframes wowPulse {
+            0%, 100% { opacity: 0.9; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        @keyframes candyPop {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes candyFade {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        .candy-celebration.hide {
+            animation: candyFade 0.3s ease forwards;
+        }
+
+        /* 马斯克语录 */
+        .musk-quote {
+            margin-top: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
+            border-radius: 12px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .musk-quote-title {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .musk-quote-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #3b82f6;
+            font-style: italic;
+        }
+
+        .musk-quote-author {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        /* 复习模式 - 列表形式 */
+        .review-list-container {
+            padding: 16px;
+            display: none;
+        }
+
+        .review-list-container.active {
+            display: block;
+        }
+
+        .review-list {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .review-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--card-light);
+        }
+
+        .review-item:last-child {
+            border-bottom: none;
+        }
+
+        .review-word {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .review-speak-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: var(--card-light);
+            color: var(--text);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .review-speak-btn:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .review-speak-btn.playing {
+            animation: pulse 1s infinite;
+        }
+
+        .review-word-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .review-meaning {
+            flex: 1;
+            text-align: right;
+            font-size: 1rem;
+            color: var(--text-muted);
+            padding-left: 15px;
+        }
+
+        .review-pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+            padding: 10px;
+        }
+
+        .review-page-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 12px;
+            background: var(--card-light);
+            color: var(--text);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .review-page-btn:hover:not(:disabled) {
+            background: var(--primary);
+        }
+
+        .review-page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .review-page-info {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* 隐藏单词卡片容器在复习模式 */
+        .word-card-container.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 星空背景 -->
+    <div class="stars" id="stars"></div>
+
+    <div class="app">
+        <!-- 首页 -->
+        <div class="page active" id="home-page">
+            <div class="header">
+                <h1>雅思词汇真经</h1>
+                <p>智能记忆 · 科学复习 · 轻松上岸</p>
+            </div>
+
+            <!-- 马斯克语录展示区域 -->
+            <div class="musk-quote-section" id="home-musk-quote">
+                <div class="musk-quote-card">
+                    <div class="musk-quote-content" id="musk-quote-display">Loading...</div>
+                    <div class="musk-quote-author">— Elon Musk</div>
+                </div>
+            </div>
+
+            <div class="progress-card">
+                <div class="progress-header">
+                    <span class="progress-title">学习进度</span>
+                    <span class="progress-stats" id="progress-stats">0 / 3600 词</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="streak">
+                    <span>🔥</span>
+                    <span id="streak-text">连续学习 0 天</span>
+                </div>
+            </div>
+
+            <div class="chapters-section">
+                <h3 class="section-title">
+                    <span>📚</span>
+                    选择章节
+                </h3>
+                <div class="chapters-grid" id="chapters-grid">
+                    <!-- 章节卡片由JS生成 -->
+                </div>
+            </div>
+
+            <!-- 章节词汇汇总入口 -->
+            <div class="vocab-summary-section">
+                <h3 class="section-title">
+                    <span>📖</span>
+                    章节词汇汇总
+                </h3>
+                <div class="summary-chapters-grid" id="summary-chapters-grid">
+                    <!-- 汇总章节按钮由JS生成 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 词汇汇总页面 -->
+        <div class="page" id="summary-page">
+            <div class="study-header">
+                <button class="back-btn" onclick="app.goHome()">←</button>
+                <div class="study-title">
+                    <h2 id="summary-chapter-name">章节词汇汇总</h2>
+                    <p id="summary-word-count">共 0 词</p>
+                </div>
+            </div>
+            <div class="summary-list-container" id="summary-list-container">
+                <!-- 词汇列表由JS生成 -->
+            </div>
+        </div>
+
+        <!-- 学习页面 -->
+        <div class="page" id="study-page">
+            <div class="study-header">
+                <button class="back-btn" onclick="app.goHome()">←</button>
+                <div class="study-title">
+                    <h2 id="study-chapter-name">自然地理</h2>
+                    <p id="study-progress">1 / 200</p>
+                </div>
+            </div>
+
+            <div class="mode-toggle">
+                <button class="mode-btn active" onclick="app.setMode('learn')">学习模式</button>
+                <button class="mode-btn" onclick="app.setMode('review')">复习模式</button>
+                <button class="mode-btn" onclick="app.setMode('spell')">拼写模式</button>
+            </div>
+
+            <!-- 单词卡片容器 -->
+            <div class="word-card-container" id="word-card-container">
+                <div class="word-card" id="word-card">
+                    <div class="word-card-front">
+                        <div class="word-header">
+                            <span class="word-number" id="word-number">#1</span>
+                            <div class="word-actions">
+                                <button class="icon-btn" onclick="app.speak()" id="speak-btn">🔊</button>
+                                <button class="icon-btn" onclick="app.toggleStar()" id="star-btn">⭐</button>
+                            </div>
+                        </div>
+                        <div class="word-main">
+                            <div class="word-text" id="word-text">abandon</div>
+                            <div class="word-phonetic" id="word-phonetic">/əˈbændən/</div>
+                        </div>
+                        <div class="word-meaning">
+                            <div class="meaning-title">释义</div>
+                            <div class="meaning-text" id="word-meaning">v. 放弃，抛弃；离弃</div>
+                        </div>
+                        <div class="word-etymology" id="word-etymology-section" style="display: none;">
+                            <div class="etymology-title">📖 词源解析</div>
+                            <div class="etymology-text" id="word-etymology"></div>
+                        </div>
+                        <div class="word-memory" id="word-memory-section" style="display: none;">
+                            <div class="memory-title">💡 记忆方法</div>
+                            <div class="memory-text" id="word-memory"></div>
+                        </div>
+                        <div class="word-example" id="word-example-section">
+                            <div class="example-header">
+                                <div class="example-title">例句</div>
+                                <button class="icon-btn example-speak-btn" onclick="app.speakExample()" id="speak-example-btn">🔊</button>
+                            </div>
+                            <div class="example-text" id="word-example">They had to abandon their car and walk the rest of the way.</div>
+                            <div class="example-translation" id="word-translation">他们不得不放弃汽车，步行走完剩下的路。</div>
+                        </div>
+                        <div class="musk-quote" id="musk-quote-section" style="display: none;">
+                            <div class="musk-quote-title">🚀 马斯克语录</div>
+                            <div class="musk-quote-text" id="musk-quote-text"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 复习模式列表容器 -->
+            <div class="review-list-container" id="review-list-container">
+                <div class="review-list" id="review-list">
+                    <!-- 复习列表项由JS生成 -->
+                </div>
+                <div class="review-pagination">
+                    <button class="review-page-btn" id="review-prev-btn" onclick="app.prevReviewPage()">← 上一页</button>
+                    <span class="review-page-info" id="review-page-info">1 / 1</span>
+                    <button class="review-page-btn" id="review-next-btn" onclick="app.nextReviewPage()">下一页 →</button>
+                </div>
+            </div>
+
+            <!-- 拼写练习区域 -->
+            <div class="spelling-section" id="spelling-section" style="display: none;">
+                <div class="spelling-hint">请根据释义拼写单词</div>
+                <input type="text" class="spelling-input" id="spelling-input" placeholder="输入单词...">
+                <button class="check-btn" onclick="app.checkSpelling()">检查</button>
+                <div class="spelling-result" id="spelling-result"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn nav-btn-prev" onclick="app.prevWord()">← 上一个</button>
+                <button class="nav-btn nav-btn-next" onclick="app.nextWord()">下一个 →</button>
+            </div>
+        </div>
+
+        <!-- 统计页面 -->
+        <div class="page" id="stats-page">
+            <div class="header">
+                <h1>学习统计</h1>
+                <p>见证你的每一步成长</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-total">0</div>
+                    <div class="stat-label">已学单词</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-mastered">0</div>
+                    <div class="stat-label">已掌握</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-streak">0</div>
+                    <div class="stat-label">连续天数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-time">0</div>
+                    <div class="stat-label">学习时长(分)</div>
+                </div>
+            </div>
+
+            <div class="reminder-section">
+                <div class="reminder-card">
+                    <div class="reminder-title">⏰ 每日提醒</div>
+                    <div class="time-picker">
+                        <div class="time-chip active" onclick="app.setReminder(this, '08:00')">08:00</div>
+                        <div class="time-chip" onclick="app.setReminder(this, '12:00')">12:00</div>
+                        <div class="time-chip" onclick="app.setReminder(this, '18:00')">18:00</div>
+                        <div class="time-chip" onclick="app.setReminder(this, '21:00')">21:00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部导航 -->
+        <div class="bottom-nav">
+            <a href="#" class="nav-item active" onclick="app.showPage('home')">
+                <span class="nav-item-icon">🏠</span>
+                <span>首页</span>
+            </a>
+            <a href="#" class="nav-item" onclick="app.showPage('study')">
+                <span class="nav-item-icon">📖</span>
+                <span>学习</span>
+            </a>
+            <a href="#" class="nav-item" onclick="app.showPage('stats')">
+                <span class="nav-item-icon">📊</span>
+                <span>统计</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- 激励弹窗 -->
+    <div class="motivation-modal" id="motivation-modal">
+        <div class="motivation-card">
+            <div class="motivation-emoji" id="motivation-emoji">🎉</div>
+            <div class="motivation-title" id="motivation-title">太棒了！</div>
+            <div class="motivation-text" id="motivation-text">你已经完成了今天的学习目标，继续保持！</div>
+            <button class="motivation-btn" onclick="app.closeMotivation()">继续加油</button>
+        </div>
+    </div>
+
+    <!-- 糖果庆祝弹窗 -->
+    <div class="candy-celebration" id="candy-popup">
+        <div class="candy-emoji">🍬</div>
+        <div class="candy-text">恭喜！已学习 <span id="candy-count">10</span> 个单词！</div>
+        <div class="candy-wow">汪汪！🐕</div>
+    </div>
+
+    <script src="vocabulary-data.js?v=5"></script>
+    <script src="app.js?v=5"></script>
+    <script>
+        // 强制修复：确保meaning显示正确
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const meaningEl = document.getElementById('word-meaning');
+                if (meaningEl && window.app && window.app.currentChapter) {
+                    const word = window.app.currentChapter.words[window.app.currentWordIndex];
+                    if (word && word.meaning) {
+                        meaningEl.textContent = word.meaning;
+                        console.log('强制修复meaning:', word.meaning);
+                    }
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
