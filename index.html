@@ -418,6 +418,7 @@
             padding: 30px;
             min-height: 400px;
             box-shadow: var(--shadow);
+            border: 1px solid var(--border);
             position: relative;
             transform-style: preserve-3d;
             transition: transform 0.6s;
@@ -512,6 +513,7 @@
             padding: 20px;
             border-radius: 16px;
             margin: 20px 0;
+            border: 1px solid var(--border);
         }
 
         .meaning-title {
@@ -1079,43 +1081,46 @@
         .word-etymology {
             margin-top: 15px;
             padding: 15px;
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            background: var(--card-light);
             border-radius: 12px;
-            border-left: 4px solid var(--accent);
+            border-left: 4px solid var(--primary);
         }
 
         .etymology-title {
-            font-size: 0.75rem;
-            color: var(--text-muted);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
             margin-bottom: 8px;
+            font-weight: 600;
         }
 
         .etymology-text {
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: var(--accent);
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text);
+            font-weight: 500;
         }
 
         /* 记忆方法 */
         .word-memory {
             margin-top: 15px;
             padding: 15px;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%);
+            background: var(--card-light);
             border-radius: 12px;
             border-left: 4px solid var(--success);
         }
 
         .memory-title {
-            font-size: 0.75rem;
-            color: var(--text-muted);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
             margin-bottom: 8px;
+            font-weight: 600;
         }
 
         .memory-text {
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: var(--success);
-            font-style: italic;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text);
+            font-weight: 500;
         }
 
         /* 马斯克语录首页样式 - Notion风格 */
